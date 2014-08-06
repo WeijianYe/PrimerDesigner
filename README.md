@@ -25,7 +25,7 @@ refDir: you have to specify the directory contained your reference files ( must 
 	perl PrimerDesigner.pl -fa region.fa -refD refDir --bwa bwa --primer primer3 --thirdD demoDir --out outdir primerDesign.I primerDesign.O
 Note:
 
-region.fa: the title of each reads have to be like "chr_pos1_pos2"(eg:>chr10_43677329_43677329), which means the position of each variants.On the other hand, in the sequence body, you can use "[]" or "<>" to require the included regions or excluded regions. (eg: ATCT<<CC>>C[CTC]ATTATG, PrimerDesigner will design the primers flank the "CTC" region and forbids the primers in the central "CC".
+region.fa: the title of each reads have to be like "chr_pos1_pos2"(eg:>chr10_43677329_43677329), which means the position of each variants.On the other hand, in the sequence body, you can use "[]" or "<>" to require the included regions or excluded regions. (eg: ATCT<CC>TC[CTC]ATTATG, PrimerDesigner will design the primers flank the "CTC" region and forbids the primers in the central "CC".
 
 ##Parameters
 Some parameters should be noticed.
