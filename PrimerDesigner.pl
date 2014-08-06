@@ -36,8 +36,8 @@ This tool aims to offer an easy way to generate primer sequences for PCR using P
   Options 'lt' and 'len' are used to confine the region available for primer design. e.g. lt=200, len=200 means primers are not allowed to locate on the target starting at 200 leftmost and 200bp in size. More:Google it.
 
 =head1 examples
-  perl PrimerDesigner.pl -fa region.fa --lt 200 --len 200 --range 100-600 --opt 55.0 --diff 5.0 --mag 60 --out outdir primer3.input out.prefix
-  perl PrimerDesigner.pl -region region.txt --refD refDir --lt 200 --len 200 --range 100-600 --opt 55.0 --diff 5.0 --mag 60 --out outdir primer3.input out.prefix
+  perl PrimerDesigner.pl -fa region.fa -refD refDir --bwa bwa --primer primer3 --thirdD demoDir --out outdir primerDesign.I primerDesign.O
+  perl PrimerDesigner.pl -region region.txt --refD refDir --bwa bwa --primer primer3 --thirdD demoDir --out outdir primerDesign.I primerDesign.O
 
 =cut
 
