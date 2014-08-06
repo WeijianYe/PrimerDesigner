@@ -25,20 +25,22 @@ refDir: you have to specify the directory contained your reference files ( must 
 	perl PrimerDesigner.pl -fa region.fa -refD refDir --bwa bwa --primer primer3 --thirdD demoDir --out outdir primerDesign.I primerDesign.O
 Note:
 
-region.fa£º the title of each reads have to be like "chr_pos1_pos2"(eg:>chr10_43677329_43677329), which means the position of each variants.On the other hand, in the sequence body, you can use "[]" or "<>" to require the included regions or excluded regions. (eg: ATCT<CC>C[CTC]ATTATG, PrimerDesigner will design the primers flank the "CTC" region and forbids the primers in the central "CC".
+region.fa: the title of each reads have to be like "chr_pos1_pos2"(eg:>chr10_43677329_43677329), which means the position of each variants.On the other hand, in the sequence body, you can use "[]" or "<>" to require the included regions or excluded regions. (eg: ATCT<CC>C[CTC]ATTATG, PrimerDesigner will design the primers flank the "CTC" region and forbids the primers in the central "CC".
 
 ##Parameters
 Some parameters should be noticed.
 
 --rep: You can use a mispriming library, fa-format, primer3 should use to screen for interspersed repeats or for other sequence to avoid as a location for primers. Suggestion library below,
 
-- HUMAN (contains microsatellites)http://bioinfo.ut.ee/cgi-bin/primer3-0.4.0/cat_humrep_and_simple.cgi
+- HUMAN (contains microsatellites) http://bioinfo.ut.ee/cgi-bin/primer3-0.4.0/cat_humrep_and_simple.cgi
 
-- RODENT_AND_SIMPLE (contains microsatellites)
+- RODENT_AND_SIMPLE (contains microsatellites) http://bioinfo.ut.ee/cgi-bin/primer3-0.4.0/cat_rodrep_and_simple.cgi
 
-- RODENT (does not contain microsatellites)
+- RODENT (does not contain microsatellites) http://bioinfo.ut.ee/cgi-bin/primer3-0.4.0/cat_rodent_ref.cgi
 
-- DROSOPHILA
+- DROSOPHILA http://bioinfo.ut.ee/cgi-bin/primer3-0.4.0/cat_drosophila.cgi
+
+--lt,--len: Options 'lt' and 'len' are used to confine the region available for primer design. e.g. lt=200, len=200 means primers are not allowed to locate on the target starting at 200 leftmost and 200bp in size. More:Google it.
 
 
 
