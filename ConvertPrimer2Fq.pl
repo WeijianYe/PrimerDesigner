@@ -13,11 +13,8 @@ while ( <IN> ){
 	if ( /^SEQUENCE_ID=(\S+)/ ){
 		$id = $1;	
 		$i = 0;
-	}elsif ( /SEQUENCE_TARGET=(\d+),(\d+)/ ){
-		chomp( my $null=<IN> );
-		if($null=~/^=$/){
-			print M "$id\n";
-		}
+	}elsif ( /PRIMER_LEFT_NUM_RETURNED=0/ ){
+		print M "$id\n";
 	}elsif ( /PRIMER_.*_SEQUENCE=(\w+)/ ){
 		$i ++;
 		my $fq1 = $1;

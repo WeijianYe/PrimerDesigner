@@ -1,8 +1,13 @@
 #!/usr/bin/perl
 use strict;
+#Date: 20140801
+#Author: Weijian Ye (BGI) & Siyang Liu (BGI&KU) based on a draft script from Liya Lin (BGI)
 =head1 Description
 
-This tool aims to offer an easy way to generate primer sequences for PCR using Primer 3 and check the specificity of the candidate primers. Only the chromosome, start and end position are needed. Besides, you should specify the directory of the third tools.
+This tool aims to offer an easy way to generate primer sequences for PCR using Primer 3 and check the specificity of the candidate primers. 
+Mode1: Only the chromosome, start and end position are needed. 
+Mode2: Provide your own fa sequence file with [] braces the variant - check the online Primer3 for details of the conventions.
+Besides, you should specify the directory of the third tools.
 
 =head1 Usage
 
@@ -76,7 +81,7 @@ $max_size ||= 27;
 $lt ||= 200;
 $len ||= 200;
 $range ||= "200-600";
-$range =~ /\d+\-(\d+)/;
+$range =~ /(\d+)\-\d+/;
 my $varS = $1;
 $opt_tm ||= "57.0";
 $max_tm ||= "61.0";
@@ -346,13 +351,26 @@ sub FindExclude{
     my $seqOrder = 0;
     my @outRegion;
     my $start;
+	my $flag1 = 0; #mark the '<' start position
+	my $flag2 = 0;
     for ( my $i = 0; $i < @tmp; $i ++ ){
         if ( $tmp[$i] eq '<' ){
+			if ( $flag1 ){
+				$flag2 ++;
+				next;		
+			}
             $start = $seqOrder + 1;
             push ( @outRegion, $start );
+			$flag1 ++;
         }elsif ( $tmp[$i] eq '>' ){
+			if ( $flag2 ){
+				$flag2 = 0;
+				next;
+			}
             my $len = $seqOrder - $start + 1;
             push ( @outRegion, $len );
+			$flag1 = 0;
+			$flag2 = 0; #reset
         }elsif ( $tmp[$i] ne '['  and $tmp[$i] ne ']' ){
             $seqOrder ++;
         }
