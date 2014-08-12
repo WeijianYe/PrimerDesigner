@@ -52,11 +52,8 @@ while ( <IN> ){
 		$i = 0;
 	}elsif ( /^SEQUENCE_TEMPLATE=(.*)/ ){
 		$seq = $1;
-	}elsif(/SEQUENCE_TARGET=(\d+),(\d+)/){
-        chomp ( my $null=<IN> );
-        if($null=~/^=$/){
-            print OUT "$rawid\tMissing\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\t$seq{$rawid}\n";
-        }
+	}elsif ( /PRIMER_LEFT_NUM_RETURNED=0/ ){
+        print OUT "$rawid\tMissing\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\t$seq{$rawid}\n";
 	}elsif(/PRIMER_LEFT.*SEQUENCE=(\w+)/){
 		
 		$i ++;

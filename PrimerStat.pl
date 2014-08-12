@@ -3,6 +3,7 @@
 my ( $bam, $info, $err, $stat, $r  ) = @ARGV; # $r acceptable region, approximately equal to variant size
 my $is1 = 3 * $r; #acceptable insertsize, 3 times of variant size
 my $is2 = $r / 3;
+#die "$is1\t$is2";
 open ( IN, "samtools view -X $bam|" );
 open ( O, ">$info" ); #pass alignment info
 print O "#ID\talignINFO\tInsertSize\tState\n";
