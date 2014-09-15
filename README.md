@@ -2,7 +2,7 @@ PrimerDesigner
 ==============
 
 ##Overview
-A quick tool for automating primer3 design and primer specificity check workflow. This repository contains several perl scripts(PrimerDesigner.pl, fastaDeal.pl, ConvertPrimer2Fq.pl, PrimerStat.pl, PrimerFinalTable.pl), you have to put them all in the identical directory and apply the option "--thirdD" to specify the source.
+A quick tool for automating primer3 design and primer specificity check workflow. This repository contains several perl scripts(PrimerDesigner.pl, fastaDeal.pl, ConvertPrimer2Fq.pl, PrimerStat.pl, PrimerFinalTable.pl), you have to put them all in the identical directory and apply the option "--thirdD" to specify the source..
 
 ##Software Requirements
 The following dependencies have been confirmed to work for running the 'PrimerDesigner.pl' pipeline, make sure that you use the correct version.
