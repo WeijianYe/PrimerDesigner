@@ -18,6 +18,7 @@ Besides, you should specify the directory of the third tools.
   --ref <s>	reference version (hg18/[hg19]);
   --lt <int>	leftmost position of target [200];
   --len <int>	minimal length of target, starting from the leftmost [200];
+  #sy 20140914: use --lt and --len when input is bed instead of fasta. target refers to the piece of DNA sequence that we aim to amplify, which not only contains the variant but also may contain a short stretch of the flanking region. Provided a bed encoding the sequence, --lt and --len defines the coordinates of the targetted region within this sequence. For example, if bed encodes 100bp insertion with 100bp upstream and 100bp downstream sequence, usually we use --lt 50 --len 150.
   --range <s>	possible range of the product size [200-600];
   --opt <f>	optimal TM [57.0];
   --max <f>	maximal TM [61.0];
@@ -336,7 +337,7 @@ print "========== Fq preparation ==========\n";
 `perl $thirdD/ConvertPrimer2Fq.pl $ARGV[-1].strict.out.txt $ARGV[-1] $ARGV[-1].Mis.txt`;
 
 print "========== Running BWA MEM ==========\n";
-`$bwa mem -R '\@RG\tID:Primer\tPL:Illumina\tPI:500\tSM:Pilot' -T 0 -C -M $refD/$ref.fa $ARGV[-1].1.fq $ARGV[-1].2.fq | samtools view -Sb - > $ARGV[-1].bam` ;
+`$bwa mem -R '\@RG\tID:Primer\tPL:Illumina\tPI:500\tSM:Pilot' -T 0 -C -M -a $refD/$ref.fa $ARGV[-1].1.fq $ARGV[-1].2.fq | samtools view -Sb - > $ARGV[-1].bam` ;
 
 print "========== STAT ==========\n";
 `perl $thirdD/PrimerStat.pl $ARGV[-1].bam $ARGV[-1].alignInfo.txt $ARGV[-1].Failed.alignInfo.txt $ARGV[-1].Major.stat $varS`;
@@ -364,7 +365,7 @@ sub FindExclude{
 			$flag1 ++;
         }elsif ( $tmp[$i] eq '>' ){
 			if ( $flag2 ){
-				$flag2 = 0;
+				$flag2 --;
 				next;
 			}
             my $len = $seqOrder - $start + 1;

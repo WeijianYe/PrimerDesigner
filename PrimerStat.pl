@@ -12,7 +12,7 @@ open ( STAT, ">$stat" ); # only check the major primer situation
 print STAT "#Tol\(Major\)\tPass\tRate\n";
 my %data;
 my $Tol;
-my $Pass;
+my $Pass = 0;
 while ( <IN> ){
 	chomp;
 	my @tmp = split /\s+/;
@@ -51,8 +51,21 @@ while ( <IN> ){
 		$Pass ++ if ( $tmp[0] =~ /1$/ );
 		print O "$tmp[0]\t$tmp[2]\,$tmp[3]\,$tmp[7]\,$tmp[8]\t$tmp[8]\tPASS\n";
 	}else{
+		my $mismatch = 0; #catch mismatch
+		my @t = split /\s+/, $l1;
 		print ERR "$_\n";
-		print O "$tmp[0]\tNA\tNA\tMultiAlignment\n";
+		$mismatch++ if ( $t[5] =~ /H/ or $t[5] =~ /D/ or $t[5] =~ /I/ );
+		for ( my $i = 1; $i < $data{$tmp[0]}; $i ++ ){
+			chomp ( my $l = <IN> );
+			my @t = split /\s+/, $l;
+			print ERR "$l\n";
+			$mismatch++ if ( $t[5] =~ /H/ or $t[5] =~ /D/ or $t[5] =~ /I/ );
+		}
+		if ( $mismatch ){
+			print O "$tmp[0]\tNA\tNA\tMultiAlignment_Mismatch\n";
+		}else{
+			print O "$tmp[0]\tNA\tNA\tMultiAlignment\n";
+		}
 	}
 }
 close IN;

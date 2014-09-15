@@ -7,7 +7,7 @@ my %is;
 my %state;
 my %info;
 open OUT,">$out";
-print OUT "#ID\tSTATE\tALIGN_INFO\tLEFT_Primer\tRIGHT_Primer\tLEFT_TM\tRIGHT_TM\tLEFT_ANY_TH\tRIGHT_ANY_TH\tLEFT_END_TH\tRIGHT_END_TH\tLEFT_HAIRPIN_TH\tRIGHT_HAIRPIN_TH\tLEFT_POSITION\tRIGHT_POSITION\tPRODUCT_LENGHT(Mut)\tPRODUCT_LENGHT(Ref)\tSEQ\n";
+print OUT "#ID\tSTATE\tALIGN_INFO\tLEFT_Primer\tRIGHT_Primer\tLEFT_TM\tRIGHT_TM\tLEFT_GC\tRIGHT_GC\tLEFT_ANY_TH\tRIGHT_ANY_TH\tLEFT_END_TH\tRIGHT_END_TH\tLEFT_HAIRPIN_TH\tRIGHT_HAIRPIN_TH\tLEFT_MISPRIMING\tRIGHT_MISPRIMING\tLEFT_POSITION\tRIGHT_POSITION\tPRODUCT_LENGHT(Mut)\tPRODUCT_LENGHT(Ref)\tSEQ\n";
 
 open ( FA, $fa );
 my %seq;
@@ -69,6 +69,10 @@ while ( <IN> ){
         print OUT "$1\t";
 	}elsif(/PRIMER_RIGHT.*TM=(\S+)/){
         print OUT "$1\t";
+	}elsif(/PRIMER_LEFT.*GC_PERCENT=(\S+)/){
+        print OUT "$1\t";
+    }elsif(/PRIMER_RIGHT.*GC_PERCENT=(\S+)/){
+        print OUT "$1\t";
 	}elsif (/PRIMER_LEFT_.*_SELF_ANY_TH=(\S+)/){
 		print OUT "$1\t";
 	}elsif (/PRIMER_RIGHT_.*_SELF_ANY_TH=(\S+)/){
@@ -80,6 +84,10 @@ while ( <IN> ){
 	}elsif (/PRIMER_LEFT_.*_HAIRPIN_TH=(\S+)/){
         print OUT "$1\t";
     }elsif (/PRIMER_RIGHT_.*_HAIRPIN_TH=(\S+)/){
+        print OUT "$1\t";
+	}elsif (/PRIMER_LEFT_.*_LIBRARY_MISPRIMING=(\S+)\,/){
+        print OUT "$1\t";
+    }elsif (/PRIMER_RIGHT_.*_LIBRARY_MISPRIMING=(\S+)\,/){
         print OUT "$1\t";
 	}elsif(/PRIMER_PAIR_.*_PRODUCT_SIZE=(\d+)/){
 	    print OUT "$left_pos\t$right_pos\t$1\t$is{$id}\t$seq{$rawid}\n";
